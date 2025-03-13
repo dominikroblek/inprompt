@@ -1,0 +1,21 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.pyd
+*.pyo
+*.so
+
+# Distribution / build folders
+build/
+dist/
+*.egg-info/
+
+# Virtual environments
+.venv/
+env/
+
+# Poetry lock file
+poetry.lock
+
+# VSCode settings
+.vscode/
