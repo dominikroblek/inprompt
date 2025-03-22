@@ -3,24 +3,6 @@
 A tiny CLI for outputting files or glob patterns as Markdown code blocks. Useful when
 you need to copy code into prompts for large language models (e.g., ChatGPT).
 
-## Installation
-
-### Option 1: With pip
-
-```bash
-pip install inprompt
-```
-
-This installs the `inprompt` command on your system or in your virtual environment.
-
-### Option 2: With [pipx](https://pypa.github.io/pipx/)
-
-```bash
-pipx install inprompt
-```
-
-This installs `inprompt` globally, isolated from your system's site packages.
-
 ## Usage
 
 From the command line, you can do something like:
@@ -49,6 +31,24 @@ Any matched files will be printed in the format:
 ````
 
 You can then paste those code blocks into an LLM prompt.
+
+## Installation
+
+### Option 1: With pip
+
+```bash
+pip install inprompt
+```
+
+This installs the `inprompt` command on your system or in your virtual environment.
+
+### Option 2: With [pipx](https://pypa.github.io/pipx/)
+
+```bash
+pipx install inprompt
+```
+
+This installs `inprompt` globally, isolated from your system's site packages.
 
 ## License
 

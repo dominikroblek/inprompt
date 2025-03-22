@@ -1,6 +1,6 @@
 [project]
 name = "inprompt"
-version = "1.0.5"
+version = "1.0.6"
 description = "Simple CLI to output source code blocks for LLM prompts"
 authors = [
     { name = "Dominik Roblek" }
