@@ -52,4 +52,4 @@ This installs `inprompt` globally, isolated from your system's site packages.
 
 ## License
 
-[MIT](LICENSE) - free to use, modify, and distribute.
+[MIT License](LICENSE)
