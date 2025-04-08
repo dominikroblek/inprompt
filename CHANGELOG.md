@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 - _Details of upcoming changes go here (if any)._
 
+## [1.1.0] - 2024-05-21
+
+### Added
+
+- Support for recursive glob patterns (e.g., `**/*.py`) by setting `recursive=True` in
+  `glob.glob`.
+- Logging added to show which file is currently being formatted (`Formatting file:
+  ...`).
+
 ## [1.0.6] - 2025-03-22
 
 ### Changed
