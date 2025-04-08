@@ -27,7 +27,7 @@ def match_file_patterns(patterns: list[str]) -> list[str]:
     """
     filenames = []
     for pattern in patterns:
-        matched_files = sorted(glob.glob(pattern))
+        matched_files = sorted(glob.glob(pattern, recursive=True))
         if not matched_files:
             logger.warning("No files matched pattern: {}", pattern)
         filenames.extend(matched_files)
@@ -46,6 +46,7 @@ def read_and_format_source_code(filename: str) -> str:
     Raises:
         FileNotFoundError: If the file does not exist.
     """
+    logger.info("Formatting file: {}", filename)
     try:
         with open(filename, "r", encoding="utf-8") as f:
             content = f.read().strip()
