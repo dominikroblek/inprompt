@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 - _Details of upcoming changes go here (if any)._
 
-## [1.1.0] - 2024-05-21
+## [1.1.0] - 2025-04-08
 
 ### Added
 
@@ -17,6 +17,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   `glob.glob`.
 - Logging added to show which file is currently being formatted (`Formatting file:
   ...`).
+
+### Changed
+
+- Updated `README.md` to clarify the importance of quoting glob patterns.
 
 ## [1.0.6] - 2025-03-22
 
