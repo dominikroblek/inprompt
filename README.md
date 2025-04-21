@@ -25,18 +25,18 @@ clipboard:
   alias pbcopy='xclip -selection clipboard'
   alias pbpaste='xclip -selection clipboard -o'
   ```
-  
+
   Then you can use the same `inprompt ... | pbcopy` pattern.
 
 Any matched files will be printed to standard output (and thus copied by `pbcopy`) in
 the format:
 
-````markdown
+`````markdown
 <filename>
-```
-<file contents>
-```
 ````
+<file contents>
+````
+`````
 
 You can then paste those code blocks into an LLM prompt.
 

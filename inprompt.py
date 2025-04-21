@@ -1,5 +1,8 @@
 """inprompt: CLI to output files as Markdown code blocks for LLM prompts.
 
+It uses four backticks (````) for code fences instead of three, to avoid delimiter
+collisions when source contains triple backticks.
+
 Example usage:
     inprompt path/to/file.py '**/*.py' | pbcopy
 """
@@ -50,7 +53,7 @@ def read_and_format_source_code(filename: str) -> str:
     try:
         with open(filename, "r", encoding="utf-8") as f:
             content = f.read().strip()
-        return f"{filename}\n```\n{content}\n```"
+        return f"{filename}\n````\n{content}\n````"
     except FileNotFoundError:
         logger.error("File not found: {}", filename)
         raise

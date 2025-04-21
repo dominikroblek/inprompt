@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 - _Details of upcoming changes go here (if any)._
 
+## [1.2.0] - 2025-04-21
+
+### Changed
+
+- Use four backticks (````) for code fences instead of three, to avoid delimiter collisions when source contains triple backticks.
+
 ## [1.1.0] - 2025-04-08
 
 ### Added
