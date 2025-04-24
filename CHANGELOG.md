@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 - _Details of upcoming changes go here (if any)._
 
+## [1.3.0] - 2025-04-25
+
+### Added
+
+- Display line count for each file in the *Formatting file* log entry
+  (e.g., `Formatting file: inprompt.py (512 lines)`).
+- Display aggregated total line count in the final summary log
+  (e.g., `Formatted and outputted 2 files (540 lines)`).
+
 ## [1.2.0] - 2025-04-21
 
 ### Changed

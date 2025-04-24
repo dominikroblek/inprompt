@@ -7,6 +7,8 @@ Example usage:
     inprompt path/to/file.py '**/*.py' | pbcopy
 """
 
+from __future__ import annotations
+
 import glob
 
 from absl import app
@@ -34,26 +36,34 @@ def match_file_patterns(patterns: list[str]) -> list[str]:
         if not matched_files:
             logger.warning("No files matched pattern: {}", pattern)
         filenames.extend(matched_files)
-    return list(dict.fromkeys(filenames))
+    return list(dict.fromkeys(filenames))  # Preserve order while removing duplicates
 
 
-def read_and_format_source_code(filename: str) -> str:
-    """Return file contents as a Markdown code fence.
+def _count_lines(text: str) -> int:
+    """Return the number of lines in `text`."""
+    return len(text.splitlines())
+
+
+def read_and_format_source_code(filename: str) -> tuple[str, int]:
+    """Return file contents as a Markdown code fence and its line count.
 
     Args:
-        filename (str): Path to the file.
+        filename: Path to the file.
 
     Returns:
-        str: Markdown code fence string.
+        Tuple where the first element is the Markdown code-fenced string and the
+        second element is the number of lines in the file.
 
     Raises:
-        FileNotFoundError: If the file does not exist.
+        FileNotFoundError: If `filename` does not exist.
     """
-    logger.info("Formatting file: {}", filename)
     try:
         with open(filename, "r", encoding="utf-8") as f:
-            content = f.read().strip()
-        return f"{filename}\n````\n{content}\n````"
+            content = f.read().rstrip("\n")
+        lines = _count_lines(content)
+        logger.info("Formatting file: {} ({} lines)", filename, lines)
+        fenced = f"{filename}\n````\n{content}\n````"
+        return fenced, lines
     except FileNotFoundError:
         logger.error("File not found: {}", filename)
         raise
@@ -63,10 +73,10 @@ def main(argv: list[str]) -> int:
     """CLI entry point.
 
     Args:
-        argv (list[str]): Command-line arguments.
+        argv: Command-line arguments.
 
     Returns:
-        int: Exit code.
+        Exit code.
     """
     if len(argv) < 2:
         logger.error("No files or file patterns specified.")
@@ -80,14 +90,20 @@ def main(argv: list[str]) -> int:
         logger.error("No matching files found.")
         return 3
 
-    formatted_contents = [read_and_format_source_code(fname) for fname in filenames]
+    formatted_results = [read_and_format_source_code(fname) for fname in filenames]
+    formatted_contents = [result[0] for result in formatted_results]
+    total_lines = sum(result[1] for result in formatted_results)
+
+    # Emit the markdown to STDOUT.
     print("\n\n".join(formatted_contents))
 
-    logger.info("Formatted and outputted {} files.", len(filenames))
+    logger.info(
+        "Formatted and outputted {} files ({} lines)", len(filenames), total_lines
+    )
     return 0
 
 
-def run():
+def run() -> None:
     """Console script entry point."""
     app.run(main)
 
