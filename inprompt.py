@@ -40,7 +40,7 @@ def match_file_patterns(patterns: list[str]) -> list[str]:
 
 
 def _count_lines(text: str) -> int:
-    """Return the number of lines in `text`."""
+    """Return the number of lines in text."""
     return len(text.splitlines())
 
 
@@ -55,11 +55,11 @@ def read_and_format_source_code(filename: str) -> tuple[str, int]:
         second element is the number of lines in the file.
 
     Raises:
-        FileNotFoundError: If `filename` does not exist.
+        FileNotFoundError: If filename does not exist.
     """
     try:
         with open(filename, "r", encoding="utf-8") as f:
-            content = f.read().rstrip("\n")
+            content = f.read().strip()
         lines = _count_lines(content)
         logger.info("Formatting file: {} ({} lines)", filename, lines)
         fenced = f"{filename}\n````\n{content}\n````"
