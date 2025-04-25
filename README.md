@@ -1,7 +1,7 @@
 # inprompt
 
-A tiny CLI for outputting files or glob patterns as Markdown code blocks. Useful when
-you need to copy code into prompts for large language models (e.g., ChatGPT).
+A tiny CLI that prints files or glob patterns as Markdown‐formatted code blocks.
+Handy for pasting source into prompts for large language models.
 
 ## Usage
 
@@ -33,31 +33,18 @@ the format:
 
 `````markdown
 <filename>
-````
+````         ← configurable with --fence / -f
 <file contents>
 ````
 `````
 
-You can then paste those code blocks into an LLM prompt.
-
 ## Installation
 
-### Option 1: With pip
-
-```bash
+````bash
 pip install inprompt
 ```
-
-This installs the `inprompt` command on your system or in your virtual environment.
-
-### Option 2: With [pipx](https://pypa.github.io/pipx/)
-
-```bash
-pipx install inprompt
-```
-
-This installs `inprompt` globally, isolated from your system's site packages.
 
 ## License
 
 [MIT License](LICENSE)
+````

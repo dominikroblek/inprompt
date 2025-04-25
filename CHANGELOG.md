@@ -1,13 +1,23 @@
 # Changelog
 
-All notable changes to this project will be documented here.
-
-The format is based on [Keep a Changelog](https://keepachangelog.com/)
-and this project adheres to [Semantic Versioning](https://semver.org/).
+All notable changes to this project are documented here.
+The format follows [Keep a Changelog](https://keepachangelog.com/) and
+the project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
 - _Details of upcoming changes go here (if any)._
+
+## [1.3.0] - 2025-04-25
+
+### Added
+
+- `--fence / -f` flag to let users choose an arbitrary Markdown fence
+  delimiter (e.g. `--fence "~~~"`).
+
+### Changed
+
+- Minor wording corrections in documentation and log messages.
 
 ## [1.2.0] - 2025-04-21
 
@@ -22,7 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - Support for recursive glob patterns (e.g., `**/*.py`) by setting `recursive=True` in
   `glob.glob`.
 - Logging added to show which file is currently being formatted (`Formatting file:
-  ...`).
+...`).
 
 ### Changed
 
