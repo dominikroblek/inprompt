@@ -8,7 +8,7 @@ the project adheres to [Semantic Versioning](https://semver.org/).
 
 - _Details of upcoming changes go here (if any)._
 
-## [1.3.0] - 2025-04-25
+## [1.5.0] - 2025-04-25
 
 ### Added
 
