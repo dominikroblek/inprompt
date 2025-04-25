@@ -1,12 +1,12 @@
-"""inprompt: CLI to output files as Markdown code blocks for LLM prompts.
+"""inprompt: CLI that outputs files as Markdown code blocks for LLM prompts.
 
-Supports a --fence flag (or -f) to pick the exact delimiter string used
-for the Markdown code-fence.
+It supports a --fence flag (or -f) that lets you specify the exact delimiter
+string used for the Markdown code fences.
 
-By default it uses four backticks (````) for code fences instead of three,
-to avoid delimiter collisions when source contains triple backticks.
+By default, it uses four backticks (````) instead of the more common three to
+avoid delimiter collisions when the source already contains triple backticks.
 
-Example usage:
+Example:
     inprompt path/to/file.py '**/*.py' | pbcopy
 """
 
@@ -26,13 +26,13 @@ flags.DEFINE_alias("f", "fence")
 
 
 def print_usage() -> None:
-    """Log usage info."""
+    """Log usage information."""
     logger.info("Usage: inprompt [--fence <fence>] <files or patterns> ...")
     logger.info("Example: inprompt my_script.py '**/*.py' | pbcopy")
 
 
 def match_file_patterns(patterns: list[str]) -> list[str]:
-    """Glob patterns and return sorted, unique matches."""
+    """Expand glob patterns and return sorted, unique file paths."""
     filenames = []
     for pattern in patterns:
         matched = sorted(glob.glob(pattern, recursive=True))
@@ -44,7 +44,7 @@ def match_file_patterns(patterns: list[str]) -> list[str]:
 
 
 def read_and_format_source_code(filename: str, fence: str) -> str:
-    """Return file contents wrapped in a Markdown code fence."""
+    """Read file contents and wrap them in a Markdown code fence."""
     path = Path(filename)
     try:
         content = path.read_text(encoding="utf-8").rstrip()
@@ -56,7 +56,7 @@ def read_and_format_source_code(filename: str, fence: str) -> str:
 
 
 def main(argv: list[str]) -> int:
-    """CLI entry point."""
+    """Main CLI entry point."""
     if len(argv) < 2:
         logger.error("No files or file patterns specified.")
         print_usage()
@@ -71,7 +71,7 @@ def main(argv: list[str]) -> int:
     fence = FLAGS.fence
     formatted = [read_and_format_source_code(fname, fence) for fname in filenames]
 
-    # Emit the markdown to STDOUT.
+    # Output formatted content to STDOUT.
     print("\n\n".join(formatted))
 
     logger.info("Formatted and outputted {} files.", len(filenames))
@@ -79,7 +79,7 @@ def main(argv: list[str]) -> int:
 
 
 def run() -> None:
-    """Console-script entry point."""
+    """Console script entry point."""
     app.run(main)
 
 
