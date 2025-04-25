@@ -4,31 +4,20 @@ It uses four backticks (````) for code fences instead of three, to avoid delimit
 collisions when source contains triple backticks.
 
 Example usage:
-    inprompt --count-lines path/to/file.py '**/*.py' | pbcopy
+    inprompt path/to/file.py '**/*.py' | pbcopy
 """
-
-from __future__ import annotations
 
 import glob
 from pathlib import Path
 
-from absl import app, flags
+from absl import app
 from loguru import logger
-
-FLAGS = flags.FLAGS
-flags.DEFINE_bool(
-    "count_lines",
-    False,
-    "If true, log the number of lines per file and the aggregate total.",
-)
 
 
 def print_usage() -> None:
     """Log usage info."""
-    logger.info(
-        "Usage: inprompt [--count-lines] <files or patterns> [<files or patterns> ...]"
-    )
-    logger.info("Example: inprompt --count-lines my_script.py '**/*.py' | pbcopy")
+    logger.info("Usage: inprompt <files or patterns> [<files or patterns> ...]")
+    logger.info("Example: inprompt my_script.py '**/*.py' | pbcopy")
 
 
 def match_file_patterns(patterns: list[str]) -> list[str]:
@@ -46,25 +35,18 @@ def match_file_patterns(patterns: list[str]) -> list[str]:
         if not matched_files:
             logger.warning("No files matched pattern: {}", pattern)
         filenames.extend(matched_files)
-
     # Preserve order while removing duplicates
     return list(dict.fromkeys(filenames))
 
 
-def _count_lines(text: str) -> int:
-    """Return the number of lines in text."""
-    return len(text.splitlines())
-
-
-def read_and_format_source_code(filename: str) -> tuple[str, int]:
-    """Return file contents as a Markdown code fence and its line count.
+def read_and_format_source_code(filename: str) -> str:
+    """Return file contents as a Markdown code fence.
 
     Args:
         filename: Path to the file.
 
     Returns:
-        Tuple where the first element is the Markdown code-fenced string and the
-        second element is the number of lines in the file.
+        Markdown code fence string.
 
     Raises:
         FileNotFoundError: If filename does not exist.
@@ -76,15 +58,8 @@ def read_and_format_source_code(filename: str) -> tuple[str, int]:
         logger.error("File not found: {}", filename)
         raise
 
-    lines = _count_lines(content)
-
-    if FLAGS.count_lines:
-        logger.info("Formatting file: {} ({} lines)", filename, lines)
-    else:
-        logger.info("Formatting file: {}", filename)
-
-    fenced = f"{filename}\n````\n{content}\n````"
-    return fenced, lines
+    logger.info("Formatting file: {}", filename)
+    return f"{filename}\n````\n{content}\n````"
 
 
 def main(argv: list[str]) -> int:
@@ -108,20 +83,12 @@ def main(argv: list[str]) -> int:
         logger.error("No matching files found.")
         return 3
 
-    formatted_results = [read_and_format_source_code(f) for f in filenames]
-    formatted_contents = [result[0] for result in formatted_results]
+    formatted_contents = [read_and_format_source_code(fname) for fname in filenames]
 
     # Emit the markdown to STDOUT.
     print("\n\n".join(formatted_contents))
 
-    if FLAGS.count_lines:
-        total_lines = sum(result[1] for result in formatted_results)
-        logger.info(
-            "Formatted and outputted {} files ({} lines).", len(filenames), total_lines
-        )
-    else:
-        logger.info("Formatted and outputted {} files.", len(filenames))
-
+    logger.info("Formatted and outputted {} files.", len(filenames))
     return 0
 
 
