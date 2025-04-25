@@ -12,12 +12,13 @@ the project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 
-- `--fence / -f` flag to let users choose an arbitrary Markdown fence
-  delimiter (e.g. `--fence "~~~"`).
+- New `--fence` flag (alias `-f`) lets you specify custom Markdown fence delimiter, e.g.
+  `inprompt --fence "~~~" file.py`.
 
 ### Changed
 
-- Minor wording corrections in documentation and log messages.
+- Doc-strings, comments, and log messages rewritten for clearer wording.
+- README updated to include an example that demonstrates the new flag.
 
 ## [1.2.0] - 2025-04-21
 

@@ -1,35 +1,36 @@
 # inprompt
 
-A tiny CLI that prints files or glob patterns as Markdown‐formatted code blocks.
-Handy for pasting source into prompts for large language models.
+A tiny CLI that outputs files as Markdown-formatted code blocks.
+Handy for pasting source into prompts for large-language models.
 
 ## Usage
 
-From the command line, you can pass files and glob patterns to `inprompt`:
+Pass files or glob patterns to `inprompt` and pipe the result to your clipboard:
 
 ```bash
 inprompt pyproject.toml '**/*.py' | pbcopy
 ```
 
-**Note:** It's important to enclose glob patterns (like `'**/*.py'`) in single or double
-quotes. This prevents your shell from expanding the pattern before `inprompt` sees it,
-ensuring correct file matching, especially for recursive patterns (`**`).
+Need a different fence delimiter? Use `--fence` (or `-f`):
 
-The `| pbcopy` (or equivalent) then pipes the formatted output directly to your
-clipboard:
+```bash
+inprompt -f "~~~" script.py | pbcopy
+```
 
-- **On macOS**, `pbcopy` copies STDOUT to the clipboard.
-- **On Ubuntu/Linux**, you can use `xclip`. Define aliases for convenience:
+**Note:** Always quote glob patterns such as `'**/*.py'` so the shell doesn’t expand
+them before `inprompt` sees them.
+
+The `| pbcopy` (or equivalent) copies the formatted blocks directly to your clipboard:
+
+- **macOS:** `pbcopy` is built-in.
+- **Linux:** install `xclip` and define aliases for convenience:
 
   ```bash
   alias pbcopy='xclip -selection clipboard'
   alias pbpaste='xclip -selection clipboard -o'
   ```
 
-  Then you can use the same `inprompt ... | pbcopy` pattern.
-
-Any matched files will be printed to standard output (and thus copied by `pbcopy`) in
-the format:
+Output format:
 
 `````markdown
 <filename>
@@ -40,11 +41,10 @@ the format:
 
 ## Installation
 
-````bash
+```bash
 pip install inprompt
 ```
 
 ## License
 
 [MIT License](LICENSE)
-````

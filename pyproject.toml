@@ -1,7 +1,7 @@
 [project]
 name = "inprompt"
 version = "1.3.0"
-description = "CLI to output source-code blocks for LLM prompts."
+description = "A tiny CLI that outputs files as Markdown-formatted code blocks."
 authors = [{ name = "Dominik Roblek" }]
 readme = "README.md"
 requires-python = ">=3.9"

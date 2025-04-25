@@ -1,4 +1,4 @@
-"""inprompt: CLI that outputs files as Markdown code blocks for LLM prompts.
+"""inprompt: A tiny CLI that prints files as Markdown-formatted code blocks.
 
 It supports a --fence flag (or -f) that lets you specify the exact delimiter
 string used for the Markdown code fences.
